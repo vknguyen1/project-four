@@ -1,0 +1,13 @@
+
+<form id='zipcodeFilterForm' onSubmit="filterFunction()">
+    <input type="text" id="search-input">  
+    <input type="submit" value="Filter">
+</form>
+
+<script>
+    function filterFunction(){
+    var action_src = "{% url 'search' %}" + document.getElementById('search-input').value;
+    var your_form = document.getElementById('zipcodeFilterForm');
+    your_form.action = action_src ;
+}
+</script>
