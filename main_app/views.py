@@ -13,12 +13,16 @@ postal_code = 'postal_code='
 
 query = '?'
 
-clientID_secret = '&client_id=OTc2OTUzNXwxNjY0NTk3NTY4LjUxNDAyNDc&client_secret=4cf673c06f28e56eee32b56e8841274e1e0e039e7559db50d787f8d887f24f4d'
+clientID_secret = 'client_id=OTc2OTUzNXwxNjY0NTk3NTY4LjUxNDAyNDc&client_secret=4cf673c06f28e56eee32b56e8841274e1e0e039e7559db50d787f8d887f24f4d'
 
 
-def zipcodeFilter(zipcode):
-    filterZipcodeURL = BASE_URL + event + query + postal_code + zipcode + clientID_secret
-    response = requests.get(filterZipcodeURL)
+def call_api_with_filters_for_event(parameters):
+    filter_event_URL = BASE_URL + event + query + "type=concert&"
+    for key in parameters:
+        filter_event_URL = filter_event_URL + key + '=' + parameters[key] + '&'
+    filter_event_URL = filter_event_URL + clientID_secret
+    print(filter_event_URL)
+    response = requests.get(filter_event_URL)
     json = response.json()
     return json
 
@@ -27,6 +31,15 @@ def home (request):
     return render(request, 'home.html')
 
 
-def search(request, zipcode):
-    filteredEvent = zipcodeFilter(str(zipcode))
-    return render(request, 'search.html', {'event' : filteredEvent})
+def search(request):
+    queries = request.GET.copy()
+    for key in queries.copy():
+        if queries[key] == "":
+            del queries[key]
+        elif key == "range":
+            queries[key] = queries[key] + "mi"
+        elif key == "performers.slug":
+            queries[key] = queries[key].replace(" ", "-")
+
+    events = call_api_with_filters_for_event(queries)        
+    return render(request, 'search.html', {'events':events})

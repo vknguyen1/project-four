@@ -1,4 +1,19 @@
-{% for concerts in event.events %}
+{% extends "boilerplate.html" %}
+
+
+
+
+{% block body %}
+{% for concerts in events.events%}
 <h1>{{concerts.short_title}}</h1>
+<h2>{{concerts.venue.name}}</h2>
+<h2>Performers</h2>
+<ul>
+    {% for performers in concerts.performers%}
+    <li>{{performers.name}}</li>
+    {% endfor %}
+</ul>
 
 {% endfor %}
+
+{% endblock %}

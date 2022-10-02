@@ -1,13 +1,15 @@
+{% extends "boilerplate.html" %}
 
-<form id='zipcodeFilterForm' onSubmit="filterFunction()">
-    <input type="text" id="search-input">  
+
+
+
+{% block body %}
+<form id='searchFilterForm' action="{% url 'search' %}">
+    <input type="text" name='postal_code' id="postal_code">
+    <input type="text" name='range' id="range">  
+    <input type="text" name='performers.slug' id="performers.slug">    
     <input type="submit" value="Filter">
 </form>
 
-<script>
-    function filterFunction(){
-    var action_src = "{% url 'search' %}" + document.getElementById('search-input').value;
-    var your_form = document.getElementById('zipcodeFilterForm');
-    your_form.action = action_src ;
-}
-</script>
+
+{% endblock %}
