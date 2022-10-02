@@ -39,7 +39,7 @@ def search(request):
         elif key == "range":
             queries[key] = queries[key] + "mi"
         elif key == "performers.slug":
-            queries[key] = queries[key].replace(" ", "-")
+            queries[key] = queries[key].replace(" ", "-").lower()
 
     events = call_api_with_filters_for_event(queries)        
     return render(request, 'search.html', {'events':events})

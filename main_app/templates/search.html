@@ -4,6 +4,9 @@
 
 
 {% block body %}
+
+{% if events.events %}
+
 {% for concerts in events.events%}
 <h1>{{concerts.short_title}}</h1>
 <h2>{{concerts.venue.name}}</h2>
@@ -15,5 +18,9 @@
 </ul>
 
 {% endfor %}
+
+{% else %}
+<h1>There are no concerts found</h1>
+{% endif %}
 
 {% endblock %}

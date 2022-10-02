@@ -5,9 +5,9 @@
 
 {% block body %}
 <form id='searchFilterForm' action="{% url 'search' %}">
-    <input type="text" name='postal_code' id="postal_code">
-    <input type="text" name='range' id="range">  
-    <input type="text" name='performers.slug' id="performers.slug">    
+    <input type="text" name='postal_code' id="postal_code" placeholder="zipcode">
+    <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)">  
+    <input type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
     <input type="submit" value="Filter">
 </form>
 
