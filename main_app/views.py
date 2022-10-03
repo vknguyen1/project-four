@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import requests
 # Create your views here.
+<<<<<<< HEAD
 
 
 BASE_URL = 'https://api.seatgeek.com/2/'
@@ -43,3 +44,10 @@ def search(request):
 
     events = call_api_with_filters_for_event(queries)        
     return render(request, 'search.html', {'events':events})
+=======
+def home(request):
+    return render(request, 'home.html', {'page_name': 'Home'})
+
+def about(request):
+    return render(request, 'about.html', {'page_name': 'About'})
+>>>>>>> 5cad723 (added url paths to home and about pages)
