@@ -1,0 +1,84 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    padding-top: 0;
+    padding: 1rem;
+    text-align: right;
+    background-color: #F8F9FA;
+}
+
+/* Navbar */
+
+    .nav-item {
+        margin: 1rem;
+    }
+
+    .navbar-brand {
+        margin-left: 3rem;
+        padding: 1rem;
+        border: solid 2px purple;
+        border-radius: .25rem;
+    }
+
+    .navbar-toggler {
+        margin-right: 1rem;
+    }
+
+    .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+
+    .nav-link {
+        color: black;
+        font-size: larger;
+        margin: 0rem 1rem 0rem 1rem;
+        padding: .5rem;
+    }
+
+    #aboutLink {
+        border-bottom: solid 10px yellow;
+    }
+
+    #signupLink {
+        border-bottom: solid 10px orange;
+    }
+
+    #loginLink {
+        border-bottom: solid 10px rgb(164, 1, 246);
+    }
+
+/* Home Page */
+
+    .home-topLeft {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+
+    #home-top-pTag {
+        border: solid 5px white;
+        padding: 3rem;
+    }
+
+    .home-top {
+        background-color: #343a3f;
+        min-height: 50vh;
+    }
+
+    .home-search {
+        display: flex;
+        justify-content: center;
+    }
+
+/* Search Page */
+

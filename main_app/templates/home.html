@@ -1,15 +1,34 @@
 {% extends "boilerplate.html" %}
 
 
-
-
 {% block body %}
-<form id='searchFilterForm' action="{% url 'search' %}">
-    <input type="text" name='postal_code' id="postal_code" placeholder="zipcode">
-    <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)">  
-    <input type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
-    <input type="submit" value="Filter">
-</form>
+
+<div class="home-top row">
+    <div class="home-topLeft col-6">
+        <p id="home-top-pTag">PROJECT INFO/TEXT HERE</p>
+    </div>
+    <div class="home-topRight col-6">
+        <img id="topRightImg1" src="../static/images/concert-hands.jpg" alt="people at concert">
+    </div>
+</div>
+
+<h3 class="home-search">Instructional Text Here</h3>
+
+<div class="home-search container-fluid">   
+
+    <form class=" form-inline my-2 my-lg-0" id='searchFilterForm' action="{% url 'search' %}">
+        <input type="text" name='postal_code' id="postal_code" placeholder="zipcode">
+        <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)">  
+        <input type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
+        <input type="submit" value="Filter">
+    </form>
+
+</div>
+
+<div>
+    <h3 class="home-search">Random Concert Grid Here</h3>
+    <!-- add logic- api call to show tiles of random concerts? -->
+</div>
 
 
 {% endblock %}

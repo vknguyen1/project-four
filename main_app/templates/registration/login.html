@@ -1,0 +1,18 @@
+{% extends 'boilerplate.html' %}
+
+
+{% block body %}
+
+<h1>Please Login</h1>
+
+{% if error_message %}
+<p class="text-red">{{ error_message }}</p>
+{% endif %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn_primary" type="submit" value="Login">
+</form>
+
+{% endblock %}
