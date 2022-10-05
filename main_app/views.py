@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import UserProfile
 import requests
 
 # Create your views here.
@@ -42,9 +47,41 @@ def search(request):
             queries[key] = queries[key].replace(" ", "-").lower()
 
     events = call_api_with_filters_for_event(queries)        
-    return render(request, 'search.html', {'events':events})
+    return render(request, 'events/search.html', {'events':events, 'page_name': 'Events'})
 
 
 def about(request):
     return render(request, 'about.html', {'page_name': 'About'})
+
+
+def detail(request):
+    return render(request, 'events/detail.html', {'page_name': 'Detail'})
+
+
+def signup(request):
+    form = UserCreationForm()
+    error_message = ''
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            error_message = 'invalid credentials'
+
+    context = {'form': form, 'error_message': error_message}
+
+    return render(request, 'registration/signup.html', context)
+
+# TO-DO @login_required
+def user_profile(request):
+    # user_profile = UserProfile.objects.get(id=request.user)
+    return render(request, 'user_profile.html', { 'page_name': 'My Profile'})
+
+# TO-DO Add LoginRequiredMixin
+# class UserProfileCreate(CreateView): 
+#     model = UserProfile
+#     fields = '__all__'
 
