@@ -1,0 +1,34 @@
+{% extends "boilerplate.html" %}
+
+
+{% block body %}
+
+{% if events.events %}
+
+<div class="search container-fluid">
+    <div class="row">
+    {% for concerts in events.events%}
+        <div class="card col-2">
+            <img class="card-img-top" src="..." alt="Card image">
+            <h1 class="card-title">{{concerts.short_title}}</h1>
+            <!-- move below data to event detail page? -->
+            <h2>{{concerts.venue.name}}</h2>
+            <h2>Performers</h2>
+            <ul>
+                {% for performers in concerts.performers%}
+                <li>{{performers.name}}</li>
+                {% endfor %}
+            </ul>
+            <a class="btn" href="{% url 'detail' %}">Details</a>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% else %}
+
+<h1>There are no concerts found</h1>
+
+{% endif %}
+
+{% endblock %}

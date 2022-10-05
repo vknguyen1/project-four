@@ -12,19 +12,36 @@
     <title>{{ page_name }} | Project Four</title>
 </head>
 <body>
-    <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li>
-                        <a href="{% url 'home' %}" class="left">Project Four</a>
-                    </li>
-                </ul>
-                <ul class="right">
-                    <li>
-                        <a href="{% url 'about' %}">About</a>
-                    </li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'home' %}">Project Four</a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              {% if user.is_authenticated %}
+              <ul class="nav justify-content-end">
+                <li class="nav-item" id="aboutLink">
+                  <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <!-- add more links ? -->
+                <li class="nav-item" id="loginLink">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+              </ul>
+              {% else %}
+              <ul class="nav justify-content-end">
+                <li class="nav-item" id="aboutLink">
+                  <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item" id="signupLink">
+                  <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                </li>
+                <li class="nav-item" id="loginLink">
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+              </ul>
+              {% endif %}
             </div>
         </nav>
     </header>
@@ -34,8 +51,8 @@
     </main>
 </body>
 <footer class="page-footer">
-    <p class="right">
-        All Rights Reserved &copy; 2022 Project Four
+    <p>
+      All Rights Reserved &copy; 2022 Project Four
     </p>
 </footer>
 </html>
