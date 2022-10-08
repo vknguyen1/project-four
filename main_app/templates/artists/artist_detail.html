@@ -1,0 +1,17 @@
+{% extends "boilerplate.html" %}
+
+
+{% block body %}
+
+<h1>{{artist.name}}</h1>
+<h2>{{artist.links}}</h2>
+
+<h2>Genre</h2>
+
+<ul>
+{% for genre in artist.genres %}
+    <li>{{genre.name}}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
