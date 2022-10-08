@@ -107,7 +107,7 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 # TO-DO @login_required
-def user_profile(request):
+def user_profile_edit(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
 
@@ -123,6 +123,9 @@ def user_profile(request):
 """    return render(request, 'user_profile.html', { 'page_name': 'My Profile'})
 """
 
+def user_profile(request):
+    return render(request, 'user_profile.html')
+
 def follow_or_create_artist(request, seatgeek_id, user_id):
     """
     if Artists.objects.filter(artist_seatgeek_id=seatgeek_id).exists():
@@ -132,9 +135,4 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
         new_entry = Artists(artist=artist.name, artist_query=artist.name.replace(" ", "-").lower(), artist_spotify_uri=, artist_seatgeek_id = seatgeek_id)"""
     pass
 
-
-# TO-DO Add LoginRequiredMixin
-# class UserProfileCreate(CreateView): 
-#     model = UserProfile
-#     fields = '__all__'
 
