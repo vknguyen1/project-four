@@ -18,6 +18,7 @@ class Artists(models.Model):
     artist_genre = models.ManyToManyField(Genre)
     artist_spotify_uri = models.CharField(max_length=100)
     artist_seatgeek_id = models.IntegerField(unique)
+    fav_artists = models.ManyToManyField(User)
     
     def __str__(self):
         return self.artist

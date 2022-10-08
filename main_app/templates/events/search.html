@@ -22,6 +22,21 @@
             <a class="btn" href="{% url 'detail' %}">Details</a>
         </div>
     {% endfor %}
+    {% for concerts in festivals.events%}
+    <div class="card col-2">
+        <img class="card-img-top" src="..." alt="Card image">
+        <h1 class="card-title">{{concerts.short_title}}</h1>
+        <!-- move below data to event detail page? -->
+        <h2>{{concerts.venue.name}}</h2>
+        <h2>Performers</h2>
+        <ul>
+            {% for performers in concerts.performers%}
+            <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <a class="btn" href="{% url 'detail' %}">Details</a>
+    </div>
+{% endfor %}
     </div>
 </div>
 

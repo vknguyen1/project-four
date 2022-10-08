@@ -27,13 +27,18 @@ clientID_secret = env('clientID_secret')
 
 
 def call_api_with_filters_for_event(parameters):
-    filter_concert_URL = BASE_URL + event + query + "type=concert&"
-    filter_festival_URL = BASE_URL + event + query + "type=music_festival&"
-    for key in parameters:
-        filter_concert_URL = filter_concert_URL + key + '=' + parameters[key] + '&'
+    if parameters != 'placeholder':
+        filter_concert_URL = BASE_URL + event + query + "type=concert&"
+        filter_festival_URL = BASE_URL + event + query + "type=music_festival&"
+        for key in parameters:
+            filter_concert_URL = filter_concert_URL + key + '=' + parameters[key] + '&'
+        
+        for key in parameters:
+            filter_festival_URL = filter_festival_URL + key + '=' + parameters[key] + '&'
+    else: 
+        filter_concert_URL = BASE_URL + event + query + "type=concert&" + clientID_secret
+        filter_festival_URL = BASE_URL + event + query + "type=music_festival&" + clientID_secret
     filter_concert_URL = filter_concert_URL + clientID_secret
-    for key in parameters:
-        filter_festival_URL = filter_festival_URL + key + '=' + parameters[key] + '&'
     filter_festival_URL = filter_festival_URL + clientID_secret
     concert_response = requests.get(filter_concert_URL)
     festival_response = requests.get(filter_festival_URL)
@@ -53,7 +58,8 @@ def call_api_for_artist_data(parameters):
 
 
 def home(request):
-    return render(request, 'home.html', {'page_name': 'Home'})
+    events = call_api_with_filters_for_event('placeholder')
+    return render(request, 'home.html', {'page_name': 'Home', 'events':events[0], 'festivals':events[1]})
 
 
 def search(request):
@@ -103,6 +109,11 @@ def signup(request):
 def user_profile(request):
     # user_profile = UserProfile.objects.get(id=request.user)
     return render(request, 'user_profile.html', { 'page_name': 'My Profile'})
+
+
+def follow_or_create_artist(request, artist_seatgeek_id, user_id):
+    pass
+
 
 # TO-DO Add LoginRequiredMixin
 # class UserProfileCreate(CreateView): 
