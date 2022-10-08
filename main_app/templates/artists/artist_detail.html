@@ -3,29 +3,28 @@
 
 {% block body %}
 
-<h1>{{artist.name}}</h1>
-<h2>{{artist.links}}</h2>
-
-<form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit" class="">
-        Follow Artist
-    </button>
-</form>
-
-<h2>Genre</h2>
-
-<ul>
-{% if artist.genres %}
-{% for genre in artist.genres %}
-    <li>{{genre.name}}</li>
+<div class="artistphoto">
+    <img src="{{ artist.image }}">
+</div>
+<div class="artist-card">
+    <div class="artist-name">
+        <h1>{{artist.name}}</h1>
+    </div>
+    <div class="artist-content">
+        <ul>
+{% for song in artist_top_songs.tracks %}
+            <li>
+            <a href="{{ song.album.external_urls.spotify }}">{{ song.name }}</a>
+            </li>
 {% endfor %}
+        </ul>
 
-{% else %}
-    <li>No genre listed</li>
-
-{% endif %}
-
-</ul>
-
+    <h2>Genre</h2>
+        <ul>
+    {% for genre in artist.genres %}
+            <li>{{genre.name}}</li>
+    {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
