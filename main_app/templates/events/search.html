@@ -16,7 +16,7 @@
             <h2>Performers</h2>
             <ul>
                 {% for performers in concerts.performers%}
-                <li>{{performers.name}}</li>
+                <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
                 {% endfor %}
             </ul>
             <a class="btn" href="{% url 'detail' %}">Details</a>

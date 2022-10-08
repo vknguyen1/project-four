@@ -1,3 +1,5 @@
+from enum import unique
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -14,6 +16,8 @@ class Artists(models.Model):
     artist = models.CharField(max_length=50)
     artist_query = models.CharField(max_length=50)
     artist_genre = models.ManyToManyField(Genre)
+    artist_spotify_uri = models.CharField(max_length=100)
+    artist_seatgeek_id = models.IntegerField(unique)
     
     def __str__(self):
         return self.artist
