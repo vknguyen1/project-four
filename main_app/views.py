@@ -24,7 +24,9 @@ postal_code = 'postal_code='
 
 query = '?'
 
-clientID_secret = env('clientID_secret')
+clientID_secret = env('SEATGEEK_CLIENTID_SECRET')
+
+
 
 
 def call_api_with_filters_for_event(parameters):
