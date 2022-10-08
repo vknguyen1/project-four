@@ -28,15 +28,6 @@ clientID_secret = env('clientID_secret')
 
 
 def call_api_with_filters_for_event(parameters):
-<<<<<<< HEAD
-    filter_concert_URL = BASE_URL + event + query + "type=concert&"
-    filter_festival_URL = BASE_URL + event + query + "type=music_festival&"
-    for key in parameters:
-        filter_concert_URL = filter_concert_URL + key + '=' + parameters[key] + '&'
-    filter_concert_URL = filter_concert_URL + clientID_secret
-    for key in parameters:
-        filter_festival_URL = filter_festival_URL + key + '=' + parameters[key] + '&'
-=======
     if parameters != 'placeholder':
         filter_concert_URL = BASE_URL + event + query + "type=concert&"
         filter_festival_URL = BASE_URL + event + query + "type=music_festival&"
@@ -49,7 +40,6 @@ def call_api_with_filters_for_event(parameters):
         filter_concert_URL = BASE_URL + event + query + "type=concert&" + clientID_secret
         filter_festival_URL = BASE_URL + event + query + "type=music_festival&" + clientID_secret
     filter_concert_URL = filter_concert_URL + clientID_secret
->>>>>>> main
     filter_festival_URL = filter_festival_URL + clientID_secret
     concert_response = requests.get(filter_concert_URL)
     festival_response = requests.get(filter_festival_URL)
@@ -59,16 +49,9 @@ def call_api_with_filters_for_event(parameters):
 
 
 def call_api_for_artist_data(parameters):
-<<<<<<< HEAD
-    filter_artist_URL = BASE_URL + performers 
-    for key in parameters:
-        filter_artist_URL = filter_artist_URL + parameters[key] + '?' + clientID_secret
-    print (filter_artist_URL)
-=======
     filter_artist_URL = BASE_URL + performers + str(parameters) + '?' + clientID_secret
 
 
->>>>>>> main
     artist_response = requests.get(filter_artist_URL)
     
     artist_json = artist_response.json()
@@ -101,14 +84,8 @@ def about(request):
 def detail(request):
     return render(request, 'events/detail.html', {'page_name': 'Detail'})
 
-<<<<<<< HEAD
-def artist_detail(request):
-    queries = request.GET.copy()
-    artist = call_api_for_artist_data(queries)
-=======
 def artist_detail(request, artist_seatgeek_id):
     artist = call_api_for_artist_data(artist_seatgeek_id)
->>>>>>> main
     return render(request, 'artists/artist_detail.html', {'artist':artist})
 
 
