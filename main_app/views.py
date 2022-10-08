@@ -43,10 +43,9 @@ def call_api_with_filters_for_event(parameters):
 
 
 def call_api_for_artist_data(parameters):
-    filter_artist_URL = BASE_URL + performers 
-    for key in parameters:
-        filter_artist_URL = filter_artist_URL + parameters[key] + '?' + clientID_secret
-    print (filter_artist_URL)
+    filter_artist_URL = BASE_URL + performers + str(parameters) + '?' + clientID_secret
+
+
     artist_response = requests.get(filter_artist_URL)
     
     artist_json = artist_response.json()
@@ -78,9 +77,8 @@ def about(request):
 def detail(request):
     return render(request, 'events/detail.html', {'page_name': 'Detail'})
 
-def artist_detail(request):
-    queries = request.GET.copy()
-    artist = call_api_for_artist_data(queries)
+def artist_detail(request, artist_seatgeek_id):
+    artist = call_api_for_artist_data(artist_seatgeek_id)
     return render(request, 'artists/artist_detail.html', {'artist':artist})
 
 
