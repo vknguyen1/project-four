@@ -1,6 +1,10 @@
+from enum import unique
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -14,6 +18,8 @@ class Artists(models.Model):
     artist = models.CharField(max_length=50)
     artist_query = models.CharField(max_length=50)
     artist_genre = models.ManyToManyField(Genre)
+    artist_spotify_uri = models.CharField(max_length=100)
+    artist_seatgeek_id = models.IntegerField(unique)
     
     def __str__(self):
         return self.artist
@@ -39,10 +45,9 @@ class Zipcodes(models.Model):
         return self.zipcode  # not sure if this is neessary here or if we should change the field to Integer
 
 class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,  related_name='profile')
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     fav_artists = models.ManyToManyField(Artists)
     fav_genre = models.ManyToManyField(Genre)
     followed_playlist = models.ManyToManyField(Playlist)
@@ -51,3 +56,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.first_name
+

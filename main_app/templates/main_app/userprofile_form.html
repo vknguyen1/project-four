@@ -1,8 +1,37 @@
 {% extends 'boilerplate.html' %}
 
 
-{% block content %}
+{% block body %}
 
-<h1>User Profile Form</h1>
+{% if user_form.errors %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <div id="form_errors">
+            {% for key, value in user_form.errors.items %}
+                <strong>{{ key }} {{value}}</strong>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+<div class="form-content">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="small mb-1">First Name:</label>
+                        {{ profile_form.first_name }}
+                    <label class="small mb-1">Last Name:</label>
+                        {{ profile_form.last_name }}
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+        <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+    </form>
+</div>
 
 {% endblock %}
