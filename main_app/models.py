@@ -3,6 +3,8 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -43,10 +45,9 @@ class Zipcodes(models.Model):
         return self.zipcode  # not sure if this is neessary here or if we should change the field to Integer
 
 class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,  related_name='profile')
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     fav_artists = models.ManyToManyField(Artists)
     fav_genre = models.ManyToManyField(Genre)
     followed_playlist = models.ManyToManyField(Playlist)
@@ -55,3 +56,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.first_name
+
