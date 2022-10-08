@@ -4,7 +4,7 @@
 {% block body %}
 
 <h1>{{artist.name}}</h1>
-<h2>{% for key, value in artist.links%}</h2>
+<h2>{{artist.links}}</h2>
 
 <form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
     {% csrf_token %}
