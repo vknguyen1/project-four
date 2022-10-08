@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 class Genre(models.Model):
     genre = models.CharField(max_length=20)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.genre
@@ -15,7 +14,6 @@ class Artists(models.Model):
     artist = models.CharField(max_length=50)
     artist_query = models.CharField(max_length=50)
     artist_genre = models.ManyToManyField(Genre)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.artist
@@ -27,7 +25,6 @@ class Playlist(models.Model):
 class FollowedEvent(models.Model):
     event_name = models.CharField(max_length=50)
     event_date = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.event_name
@@ -37,7 +34,6 @@ class FollowedEvent(models.Model):
 
 class Zipcodes(models.Model):
     zipcode = models.CharField(max_length=10)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.zipcode  # not sure if this is neessary here or if we should change the field to Integer
