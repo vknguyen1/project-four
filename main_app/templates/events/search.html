@@ -9,8 +9,9 @@
     <div class="row">
     {% for concerts in events.events%}
         <div class="card col-2">
-            <img class="card-img-top" src="..." alt="Card image">
-            <h1 class="card-title">{{concerts.short_title}}</h1>
+            <img class="card-img-top" src="{{concerts.performers.0.images.huge}}" alt="Card image">
+            
+            <h1 class="card-title">{{concerts.short_title}}</h1> 
             <!-- move below data to event detail page? -->
             <h2>{{concerts.venue.name}}</h2>
             <h2>Performers</h2>
@@ -24,6 +25,7 @@
     {% endfor %}
     </div>
 </div>
+
 
 {% else %}
 
