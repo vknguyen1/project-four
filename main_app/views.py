@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import UserProfile
 import requests
+import environ
+
+env = environ.Env()
 
 # Create your views here.
 
@@ -18,7 +21,7 @@ postal_code = 'postal_code='
 
 query = '?'
 
-clientID_secret = 'client_id=OTc2OTUzNXwxNjY0NTk3NTY4LjUxNDAyNDc&client_secret=4cf673c06f28e56eee32b56e8841274e1e0e039e7559db50d787f8d887f24f4d'
+clientID_secret = env('clientID_secret')
 
 
 def call_api_with_filters_for_event(parameters):
@@ -26,7 +29,6 @@ def call_api_with_filters_for_event(parameters):
     for key in parameters:
         filter_event_URL = filter_event_URL + key + '=' + parameters[key] + '&'
     filter_event_URL = filter_event_URL + clientID_secret
-    print(filter_event_URL)
     response = requests.get(filter_event_URL)
     json = response.json()
     return json
