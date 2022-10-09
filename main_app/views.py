@@ -107,7 +107,7 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 # TO-DO @login_required
-def user_profile(request):
+def user_profile_edit(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
 
@@ -123,18 +123,30 @@ def user_profile(request):
 """    return render(request, 'user_profile.html', { 'page_name': 'My Profile'})
 """
 
+def user_profile(request):
+    profile = UserProfile.objects.get(user=request.user)
+    return render(request, 'user_profile.html', {'profile': profile})
+
 def follow_or_create_artist(request, seatgeek_id, user_id):
-    """
     if Artists.objects.filter(artist_seatgeek_id=seatgeek_id).exists():
-        Artists.objects.get(artist_seatgeek_id=seatgeek_id).fav_artists.add(user_id)
+        called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
+        id = ''
+        for artist in called_artist:
+            id = artist.id
+        UserProfile.objects.get(user=user_id).fav_artists.add(id)
     else:
         artist = call_api_for_artist_data(seatgeek_id)
-        new_entry = Artists(artist=artist.name, artist_query=artist.name.replace(" ", "-").lower(), artist_spotify_uri=, artist_seatgeek_id = seatgeek_id)"""
-    pass
+        new_entry = Artists(
+            artist=artist['name'], 
+            artist_query=artist['name'].replace(" ", "-").lower(), 
+            artist_spotify_uri=artist['links'][0]['id'][15:], 
+            artist_seatgeek_id = seatgeek_id)
+        new_entry.save()
+        called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
+        id = ''
+        for artist in called_artist:
+            id = artist.id
+        UserProfile.objects.get(user=user_id).fav_artists.add(id)
+    return redirect('user_profile')
 
-
-# TO-DO Add LoginRequiredMixin
-# class UserProfileCreate(CreateView): 
-#     model = UserProfile
-#     fields = '__all__'
 

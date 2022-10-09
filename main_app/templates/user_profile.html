@@ -4,5 +4,20 @@
 
 <h1>User Profile</h1>
 
+<a class="btn" href="{% url 'user_profile_edit' %}">Edit User Profile</a>
+
+
+
+<h1>Followed Artists</h1>
+<ul>
+    {% if profile.fav_artists.count %}
+        {% for artists in profile.fav_artists.all %}
+    <li>
+        {{artists.artist}}
+    </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+
 {% endblock %}
 
