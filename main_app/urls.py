@@ -10,5 +10,7 @@ urlpatterns = [
     path('artists/<int:seatgeek_id>/assignuser/<int:user_id>', views.follow_or_create_artist, name='follow_or_create_artist'), 
     path('user_profile/', views.user_profile, name='user_profile'),
     path('user_profile/edit/', views.user_profile_edit, name='user_profile_edit'),
-    path('accounts/signup/', views.signup, name='signup')
+    path('accounts/signup/', views.signup, name='signup'),
+    path('spotify/', views.spotify, name='spotify'),
+
 ]
