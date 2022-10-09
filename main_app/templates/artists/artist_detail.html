@@ -10,6 +10,13 @@
     <div class="artist-name">
         <h1>{{artist.name}}</h1>
     </div>
+
+<form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="">
+            Follow Artist
+        </button>
+</form>
     <div class="artist-content">
         <ul>
 {% for song in artist_top_songs.tracks %}
