@@ -157,6 +157,4 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
 
 
 def spotify(request):
-    return render(request, 'spotify.html', {
-        'artist_top_songs': artist_top_songs
-        })
+    return render(request, 'spotify.html')

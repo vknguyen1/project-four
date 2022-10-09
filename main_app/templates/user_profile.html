@@ -13,7 +13,7 @@
     {% if profile.fav_artists.count %}
         {% for artists in profile.fav_artists.all %}
     <li>
-        {{artists.artist}}
+        <a href="{% url 'artist_detail' artists.artist_seatgeek_id %}">{{artists.artist}}</a>   
     </li>
     {% endfor %}
     {% endif %}

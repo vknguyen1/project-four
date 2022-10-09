@@ -13,17 +13,5 @@
     
     
     
-    <div class="card-container">
-        <div class="card-name">
-            {% for artist in artist_top_songs.tracks %}
-            <!-- <h2>{{ artist.album.artists }}</h2> -->
-            {% endfor %}
-            <div class="song-name">
-                {% for album in artist_top_songs.tracks %}
-                <p>{{ album.name }}</p>
-                {% endfor %}
-                
-            </div>
-        </div>
-    </div>
+
 {% endblock %}
