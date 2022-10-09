@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Artists, UserProfile
 import requests
 import environ
+from .spotify import artist_topsongs
 
 env = environ.Env()
 
@@ -24,7 +25,9 @@ postal_code = 'postal_code='
 
 query = '?'
 
-clientID_secret = env('clientID_secret')
+clientID_secret = env('SEATGEEK_CLIENTID_SECRET')
+
+
 
 
 def call_api_with_filters_for_event(parameters):
@@ -86,7 +89,9 @@ def detail(request):
 
 def artist_detail(request, artist_seatgeek_id):
     artist = call_api_for_artist_data(artist_seatgeek_id)
-    return render(request, 'artists/artist_detail.html', {'artist':artist})
+    artist_id=artist['links'][0]['id'][15:]
+    topsongs = artist_topsongs(artist_id)
+    return render(request, 'artists/artist_detail.html', {'artist':artist, 'artist_top_songs': topsongs})
 
 
 def signup(request):
@@ -136,3 +141,8 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
     pass
 
 
+
+def spotify(request):
+    return render(request, 'spotify.html', {
+        'artist_top_songs': artist_top_songs
+        })
