@@ -19,18 +19,26 @@
 </form>
     <div class="artist-content">
         <ul>
+{% if artist_top_songs != "" %}
 {% for song in artist_top_songs.tracks %}
             <li>
             <a href="{{ song.album.external_urls.spotify }}">{{ song.name }}</a>
             </li>
 {% endfor %}
+{% else %}
+            <li>No spotify links for the artist found</li>
+{% endif %}
         </ul>
 
     <h2>Genre</h2>
         <ul>
+    {% if artist.genres %}
     {% for genre in artist.genres %}
             <li>{{genre.name}}</li>
     {% endfor %}
+    {% else %}
+            <li>Genre not found</li>
+    {% endif %}
         </ul>
     </div>
 </div>

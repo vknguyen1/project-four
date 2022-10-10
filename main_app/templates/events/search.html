@@ -3,6 +3,17 @@
 
 {% block body %}
 
+{% if postal_code != "" %}
+<h1>Showing events 
+    {% if range != ""%}
+    within {{range}} from
+    {% else %}
+    near
+    {% endif %}
+    {{postal_code}} 
+</h1>
+{% endif %}
+
 {% if events.events %}
 
 <div class="search container-fluid">

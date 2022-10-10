@@ -7,4 +7,4 @@ class MainAppConfig(AppConfig):
 
     # add this
     def ready(self):
-        import main_app.signals  # noqa
+        import main_app.signals  

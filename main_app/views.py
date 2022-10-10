@@ -68,16 +68,23 @@ def home(request):
 
 def search(request):
     queries = request.GET.copy()
+    postal_code = ""
+    range = ""
+    performers = ""
     for key in queries.copy():
         if queries[key] == "":
             del queries[key]
+        elif key == "postal_code":
+            postal_code = queries[key]
         elif key == "range":
             queries[key] = queries[key] + "mi"
+            range = queries[key]
         elif key == "performers.slug":
             queries[key] = queries[key].replace(" ", "-").lower()
+            performers = queries[key]
 
     events = call_api_with_filters_for_event(queries)     
-    return render(request, 'events/search.html', {'events':events[0], 'festivals':events[1], 'page_name': 'Events'})
+    return render(request, 'events/search.html', {'events':events[0], 'festivals':events[1], 'postal_code': postal_code, 'range':range, 'performers': performers, 'page_name': 'Events'})
 
 
 def about(request):
@@ -89,9 +96,12 @@ def detail(request):
 
 def artist_detail(request, artist_seatgeek_id):
     artist = call_api_for_artist_data(artist_seatgeek_id)
-    artist_id=artist['links'][0]['id'][15:]
-    topsongs = artist_topsongs(artist_id)
+    topsongs = ""
+    if artist['links']:
+        artist_id=artist['links'][0]['id'][15:]
+        topsongs = artist_topsongs(artist_id)
     return render(request, 'artists/artist_detail.html', {'artist':artist, 'artist_top_songs': topsongs})
+    
 
 
 def signup(request):
@@ -148,13 +158,19 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
             artist_seatgeek_id = seatgeek_id)
         new_entry.save()
         called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
+        print(called_artist)
         id = ''
         for artist in called_artist:
             id = artist.id
         UserProfile.objects.get(user=user_id).fav_artists.add(id)
     return redirect('user_profile')
 
-
+def unfollow_artist(request, seatgeek_id, user_id):
+        called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
+        id = ''
+        for artist in called_artist:
+            id = artist.id
+        UserProfile.objects.get(user=user_id).fav_artists.remove(id)
 
 def spotify(request):
     return render(request, 'spotify.html')
