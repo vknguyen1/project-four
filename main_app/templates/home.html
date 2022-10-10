@@ -16,9 +16,9 @@
 
 <div class="home-search container-fluid">   
 
-    <form class=" form-inline my-2 my-lg-0" id='searchFilterForm' action="{% url 'search' %}">
+    <form class=" form-inline my-2 my-lg-0" id='searchFilterForm' action="{% url 'search' %}" autocomplete="off">
         <input type="text" name='postal_code' id="postal_code" placeholder="zipcode">
-        <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)">  
+        <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)" disabled>  
         <input type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
         <input type="submit" value="Filter">
     </form>
@@ -65,5 +65,19 @@
     </div>
 </div>
 
+<script>
+    let inp1 = document.getElementById("postal_code");
+    let inp2 = document.getElementById("range");
+
+    inp1.addEventListener("keyup", function(){
+        if(inp1.value){
+            inp2.disabled = false
+        }
+        else {
+            inp2.disabled = true
+        }
+    })
+
+</script>
 
 {% endblock %}
