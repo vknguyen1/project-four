@@ -3,6 +3,9 @@
 
 {% block body %}
 
+
+
+
 <div class="artistphoto">
     <img src="{{ artist.image }}">
 </div>
@@ -10,13 +13,33 @@
     <div class="artist-name">
         <h1>{{artist.name}}</h1>
     </div>
+{% if profile.fav_artists.count%}
+    {% if favartist in profile.fav_artists.all %}
+        {{profile.fav_artists.all}}
 
-<form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="">
-            Follow Artist
-        </button>
-</form>
+        <form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="">
+                    Follow Artist
+                </button>
+        </form>
+        {% else %}
+        <form action="{% url 'unfollow_artist' artist.id user.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="">
+                Unfollow Artist
+            </button>
+        </form>
+
+    {% endif %}
+{% else %}
+        <form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="">
+                Follow Artist
+            </button>
+        </form>    
+{% endif %}
     <div class="artist-content">
         <ul>
 {% if artist_top_songs != "" %}
