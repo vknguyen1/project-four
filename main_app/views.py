@@ -151,11 +151,17 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
         UserProfile.objects.get(user=user_id).fav_artists.add(id)
     else:
         artist = call_api_for_artist_data(seatgeek_id)
-        new_entry = Artists(
-            artist=artist['name'], 
-            artist_query=artist['name'].replace(" ", "-").lower(), 
-            artist_spotify_uri=artist['links'][0]['id'][15:], 
-            artist_seatgeek_id = seatgeek_id)
+        if artist['links']:
+            new_entry = Artists(
+                artist=artist['name'], 
+                artist_query=artist['name'].replace(" ", "-").lower(), 
+                artist_spotify_uri=artist['links'][0]['id'][15:], 
+                artist_seatgeek_id = seatgeek_id)
+        else:
+            new_entry = Artists(
+                artist=artist['name'], 
+                artist_query=artist['name'].replace(" ", "-").lower(), 
+                artist_seatgeek_id = seatgeek_id)
         new_entry.save()
         called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
         print(called_artist)
@@ -163,7 +169,7 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
         for artist in called_artist:
             id = artist.id
         UserProfile.objects.get(user=user_id).fav_artists.add(id)
-    return redirect('user_profile')
+    return redirect('artist_detail', seatgeek_id)
 
 def unfollow_artist(request, seatgeek_id, user_id):
         called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
