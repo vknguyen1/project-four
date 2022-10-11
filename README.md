@@ -2,7 +2,7 @@
 
 One of the biggest appeals of attending a concert is to surround yourself with people that share a common passion in the music you love. Unfortunately, sometimes when you bring friends along with you, they aren’t always as familiar with the artist as you and nothing is more depressing than singing your heart out to a song at a concert, just to see those around you have no idea what song you are listening to.
 
-This app will help solve this problem by allowing a user to generate a suggested playlist consisting of songs of the artists that you would like to see.
+This app will help solve this problem by allowing a user to generate a suggested playlist consisting of songs of the artists that you would like to see.  The user will login, create a personalized profile, and search for events their favorite artists
 
 If people can hear the songs before the concert, it will maximize their concert-going experiences and help you and your friends bond closer than ever!
 
