@@ -32,6 +32,7 @@ footer {
         margin-right: 1rem;
     }
 
+    /* TO-DO needed? */
     .navbar-collapse {
         display: flex !important;
         flex-basis: auto;
@@ -39,21 +40,25 @@ footer {
 
     .nav-link {
         color: black;
-        font-size: larger;
+        font-size: large;
         margin: 0rem 1rem 0rem 1rem;
         padding: .5rem;
     }
 
-    #aboutLink {
+    .link-1 {
         border-bottom: solid 10px yellow;
     }
 
-    #signupLink {
+    .link-2 {
         border-bottom: solid 10px orange;
     }
 
-    #loginLink {
+    .link-3 {
         border-bottom: solid 10px rgb(164, 1, 246);
+    }
+
+    #spotifyLink {
+        border-bottom: solid 10px #1DB954;
     }
 
 /* Home Page */
@@ -63,6 +68,10 @@ footer {
         justify-content: center;
         align-items: center;
         color: white;
+    }
+
+    .home-topRight img {
+        max-width: 100%;
     }
 
     #home-top-pTag {
@@ -81,4 +90,14 @@ footer {
     }
 
 /* Search Page */
+
+
+
+/* Media */
+
+@media screen and (width: 600px){
+    /* .navbar-toggler {
+        display: block;
+    } */
+}
 
