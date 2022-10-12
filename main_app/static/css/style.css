@@ -6,6 +6,7 @@ body {
 
 main {
     flex-grow: 1;
+    background-color: #343a3f;
 }
 
 footer {
@@ -63,14 +64,20 @@ footer {
 
 /* Home Page */
 
-    .home-topLeft {
+    .home-top {
+        flex-direction: row;
+        background-color: #343a3f;
+        min-height: 50vh;
+    }
+
+    .home-top-left {
         display: flex;
         justify-content: center;
         align-items: center;
         color: white;
     }
 
-    .home-topRight img {
+    .home-top-right img {
         max-width: 100%;
     }
 
@@ -79,9 +86,8 @@ footer {
         padding: 3rem;
     }
 
-    .home-top {
-        background-color: #343a3f;
-        min-height: 50vh;
+    .home-bottom {
+        background-color: white;
     }
 
     .home-search {
@@ -89,15 +95,21 @@ footer {
         justify-content: center;
     }
 
-/* Search Page */
+/* About Page */
 
-
+.about-container {
+    color: white;
+}
 
 /* Media */
 
-@media screen and (width: 600px){
+@media screen and (max-width: 400px){
     /* .navbar-toggler {
         display: block;
     } */
+
+    .home-top {
+        flex-direction: column;
+    }
 }
 
