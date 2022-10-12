@@ -63,14 +63,14 @@ footer {
 
 /* Home Page */
 
-    .home-topLeft {
+    .home-top-left {
         display: flex;
         justify-content: center;
         align-items: center;
         color: white;
     }
 
-    .home-topRight img {
+    .home-top-right img {
         max-width: 100%;
     }
 
@@ -84,14 +84,26 @@ footer {
         min-height: 50vh;
     }
 
+    .home-bottom {
+        background-color: white;
+    }
+
     .home-search {
         display: flex;
         justify-content: center;
     }
 
-/* Search Page */
+/* About Page */
+    .about-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 
-
+    #irwin, #vincent, #hannah {
+        margin: 30px;
+    }
 
 /* Media */
 
@@ -100,4 +112,5 @@ footer {
         display: block;
     } */
 }
+
 
