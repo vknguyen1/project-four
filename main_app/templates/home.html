@@ -35,14 +35,9 @@
             <div class="card col-2">
                 <img class="card-img-top" src="{{concerts.performers.0.image}}" alt="Card image">
                 <h1 class="card-title">{{concerts.short_title}}</h1>
-                <!-- move below data to event detail page? -->
                 <h2>{{concerts.venue.name}}</h2>
-                <h2>Performers</h2>
-                <ul>
-                    {% for performers in concerts.performers%}
-                    <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
-                    {% endfor %}
-                </ul>
+                <h3>{{concerts.display_location}}</h3>
+                <h4 id="concert{{concerts.id}}">{{concerts.datetime_local}}</h4>
                 <a class="btn" href="{% url 'detail' concerts.id %}">Details</a>
             </div>
         {% endfor %}
@@ -52,12 +47,8 @@
             <h1 class="card-title">{{concerts.short_title}}</h1>
             <!-- move below data to event detail page? -->
             <h2>{{concerts.venue.name}}</h2>
-            <h2>Performers</h2>
-            <ul>
-                {% for performers in concerts.performers%}
-                <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
-                {% endfor %}
-            </ul>
+            <h3>{{concerts.display_location}}</h3>
+            <h4>{{concerts.datetime_local}}</h4>
             <a class="btn" href="{% url 'detail' concerts.id %}">Details</a>
         </div>
     {% endfor %}

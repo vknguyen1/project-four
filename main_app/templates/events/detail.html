@@ -4,5 +4,47 @@
 {% block body %}
 
 <h1>Concert Detail Page</h1>
+<div class="card col-2">
+    <img class="card-img-top" src="{{event.performers.0.image}}" alt="Card image">
+    <h1 class="card-title">{{event.short_title}}</h1>
+    <h2>{{event.venue.name}}</h2>
+    <h3>{{event.venue.address}}, {{event.venue.extended_address}}</h3>
+    <h4 id="concert{{event.id}}">{{event.datetime_local}}</h4>
+    <h2>Performers</h2>
+{% if user.is_authenticated %}
+{% if profile.followed_event.count%}
+    {% for favevent in profile.followed_event.all %}
+        {% if event.id == favevent.event_seatgeek_id %}
 
+        <form action="{% url 'unfollow_event' event.id user.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="">
+                Unfollow Event
+            </button>
+        </form>
+        {% else %}
+        <form action="{% url 'follow_or_create_event' event.id user.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="">
+                Follow Event
+            </button>
+        </form>
+        {% endif %}
+    {% endfor %}
+{% else %}
+        <form action="{% url 'follow_or_create_event' event.id user.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="">
+                Follow Event
+            </button>
+        </form>    
+{% endif %}
+{% endif %}
+    <ul>
+        {% for performers in event.performers%}
+        <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
+        {% endfor %}
+    </ul>
+    <a class="btn" href="{{event.url}}">Seatgeek Link</a>
+</div>
 {% endblock %}
