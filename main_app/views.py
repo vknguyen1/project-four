@@ -103,21 +103,25 @@ def about(request):
 
 def detail(request, event_id):
     profile = ''
+    event_entries = ''
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
-    event = call_api_for_event_data(event_id)
-    return render(request, 'events/detail.html', {'page_name': 'Detail', 'event': event, 'profile':profile})
+        event_entries = UserProfile.objects.filter(user=request.user).values_list('followed_event__event_seatgeek_id', flat = True)
+    event = call_api_for_event_data(event_id)    
+    return render(request, 'events/detail.html', {'page_name': 'Detail', 'event': event, 'profile':profile, 'event_entries': event_entries})
 
 def artist_detail(request, artist_seatgeek_id):
     profile = ''
+    artist_entries = ''
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
+        artist_entries = UserProfile.objects.filter(user=request.user).values_list('fav_artists__artist_seatgeek_id', flat = True)
     artist = call_api_for_artist_data(artist_seatgeek_id)
     topsongs = ""
     if artist['links']:
         artist_id=artist['links'][0]['id'][15:]
         topsongs = artist_topsongs(artist_id)
-    return render(request, 'artists/artist_detail.html', {'artist':artist, 'artist_top_songs': topsongs, 'profile':profile})
+    return render(request, 'artists/artist_detail.html', {'artist':artist, 'artist_top_songs': topsongs, 'profile':profile, 'artist_entries': artist_entries})
     
 
 
