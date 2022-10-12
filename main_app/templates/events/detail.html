@@ -13,24 +13,23 @@
     <h2>Performers</h2>
 {% if user.is_authenticated %}
 {% if profile.followed_event.count%}
-    {% for favevent in profile.followed_event.all %}
-        {% if event.id == favevent.event_seatgeek_id %}
+    {% if event.id in event_entries %}
+    <form action="{% url 'unfollow_event' event.id user.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="">
+            Unfollow Event
+        </button>
+    </form>
+    {% else %}
+    <form action="{% url 'follow_or_create_event' event.id user.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="">
+            Follow Event
+        </button>
+    </form>
 
-        <form action="{% url 'unfollow_event' event.id user.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="">
-                Unfollow Event
-            </button>
-        </form>
-        {% else %}
-        <form action="{% url 'follow_or_create_event' event.id user.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="">
-                Follow Event
-            </button>
-        </form>
-        {% endif %}
-    {% endfor %}
+
+    {% endif %}
 {% else %}
         <form action="{% url 'follow_or_create_event' event.id user.id %}" method="post">
             {% csrf_token %}
