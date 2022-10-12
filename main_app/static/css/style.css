@@ -6,7 +6,6 @@ body {
 
 main {
     flex-grow: 1;
-    background-color: #343a3f;
 }
 
 footer {
@@ -64,12 +63,6 @@ footer {
 
 /* Home Page */
 
-    .home-top {
-        flex-direction: row;
-        background-color: #343a3f;
-        min-height: 50vh;
-    }
-
     .home-top-left {
         display: flex;
         justify-content: center;
@@ -86,6 +79,11 @@ footer {
         padding: 3rem;
     }
 
+    .home-top {
+        background-color: #343a3f;
+        min-height: 50vh;
+    }
+
     .home-bottom {
         background-color: white;
     }
@@ -96,20 +94,23 @@ footer {
     }
 
 /* About Page */
+    .about-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 
-.about-container {
-    color: white;
-}
+    #irwin, #vincent, #hannah {
+        margin: 30px;
+    }
 
 /* Media */
 
-@media screen and (max-width: 400px){
+@media screen and (width: 600px){
     /* .navbar-toggler {
         display: block;
     } */
-
-    .home-top {
-        flex-direction: column;
-    }
 }
+
 
