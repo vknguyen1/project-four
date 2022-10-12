@@ -4,26 +4,24 @@
 {% block body %}
 
 <div class="home-top row">
-    <div class="home-top-left col-6">
+    <div class="home-topLeft col-6">
         <p id="home-top-pTag">PROJECT INFO/TEXT HERE</p>
     </div>
-    <div class="home-top-right col-6">
+    <div class="home-topRight col-6">
         <img id="topRightImg1" src="../static/images/concert-lights.jpg" alt="people at concert">
     </div>
 </div>
 
-<div class="home-bottom">
+<h3 class="home-search">Instructional Text Here</h3>
 
-    <h3 class="home-search">Instructional Text Here</h3>
+<div class="home-search container-fluid">   
 
-    <div class="home-search container-fluid">   
-        <form class=" form-inline my-2 my-lg-0" id='searchFilterForm' action="{% url 'search' %}" autocomplete="off">
-            <input type="text" name='postal_code' id="postal_code" placeholder="zipcode">
-            <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)" disabled>  
-            <input type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
-            <input type="submit" value="Filter">
-        </form>
-    </div>
+    <form class=" form-inline my-2 my-lg-0" id='searchFilterForm' action="{% url 'search' %}" autocomplete="off">
+        <input type="text" name='postal_code' id="postal_code" placeholder="zipcode">
+        <input type="text" name='range' id="range" placeholder="range in miles (from zipcode)" disabled>  
+        <input type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
+        <input type="submit" value="Filter">
+    </form>
 
 </div>
 
@@ -59,22 +57,10 @@
                 {% for performers in concerts.performers%}
                 <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
                 {% endfor %}
-                {% for concerts in festivals.events%}
-                <div class="card ">
-                    <img class="card-img-top" src="..." alt="Card image">
-                    <h1 class="card-title">{{concerts.short_title}}</h1>
-                    <!-- move below data to event detail page? -->
-                    <h2>{{concerts.venue.name}}</h2>
-                    <h2>Performers</h2>
-                    <ul>
-                        {% for performers in concerts.performers%}
-                        <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    <a class="btn" href="{% url 'detail' %}">Details</a>
-                </div>
-                {% endfor %}
-            </div>
+            </ul>
+            <a class="btn" href="{% url 'detail' %}">Details</a>
+        </div>
+    {% endfor %}
         </div>
     </div>
 </div>
@@ -91,6 +77,7 @@
             inp2.disabled = true
         }
     })
+
 </script>
 
 {% endblock %}
