@@ -13,10 +13,11 @@
     <div class="artist-name">
         <h1>{{artist.name}}</h1>
     </div>
-{% if profile.fav_artists.count%}
+{% if user.is_authenticated %}
+    {% if profile.fav_artists.count%}
     {% if favartist in profile.fav_artists.all %}
         {{profile.fav_artists.all}}
-
+    
         <form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="">
@@ -40,6 +41,7 @@
             </button>
         </form>    
 {% endif %}
+{% endif %}
     <div class="artist-content">
         <ul>
 {% if artist_top_songs != "" %}
@@ -52,6 +54,7 @@
             <li>No spotify links for the artist found</li>
 {% endif %}
         </ul>
+
 
     <h2>Genre</h2>
         <ul>

@@ -33,7 +33,7 @@
         <div class="row">
         {% for concerts in events.events%}
             <div class="card col-2">
-                <img class="card-img-top" src="..." alt="Card image">
+                <img class="card-img-top" src="{{concerts.performers.0.image}}" alt="Card image">
                 <h1 class="card-title">{{concerts.short_title}}</h1>
                 <!-- move below data to event detail page? -->
                 <h2>{{concerts.venue.name}}</h2>
@@ -48,7 +48,7 @@
         {% endfor %}
         {% for concerts in festivals.events%}
         <div class="card col-2">
-            <img class="card-img-top" src="..." alt="Card image">
+            <img class="card-img-top" src="{{concerts.performers.0.image}}" alt="Card image">
             <h1 class="card-title">{{concerts.short_title}}</h1>
             <!-- move below data to event detail page? -->
             <h2>{{concerts.venue.name}}</h2>

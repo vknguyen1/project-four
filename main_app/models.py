@@ -20,6 +20,7 @@ class Artists(models.Model):
     artist_genre = models.ManyToManyField(Genre)
     artist_spotify_uri = models.CharField(max_length=100)
     artist_seatgeek_id = models.IntegerField(unique)
+    artist_image = models.CharField(max_length=200)
     
     def __str__(self):
         return self.artist
