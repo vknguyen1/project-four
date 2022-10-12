@@ -6,10 +6,11 @@ from main_app.forms import UserCreationForm, ProfileForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Artists, UserProfile
+from .models import Artists, FollowedEvent, UserProfile
 import requests
 import environ
 from .spotify import artist_topsongs
+from datetime import datetime
 
 env = environ.Env()
 
@@ -52,13 +53,22 @@ def call_api_with_filters_for_event(parameters):
 
 
 def call_api_for_artist_data(parameters):
-    filter_artist_URL = BASE_URL + performers + str(parameters) + '?' + clientID_secret
+    filter_artist_URL = BASE_URL + performers + str(parameters) + query + clientID_secret
 
 
     artist_response = requests.get(filter_artist_URL)
     
     artist_json = artist_response.json()
     return artist_json
+
+def call_api_for_event_data(parameters):
+    filter_event_URL = BASE_URL + event + '/' + str(parameters) + query + clientID_secret
+
+
+    event_response = requests.get(filter_event_URL)
+    
+    event_json = event_response.json()
+    return event_json
 
 
 def home(request):
@@ -91,8 +101,12 @@ def about(request):
     return render(request, 'about.html', {'page_name': 'About'})
 
 
-def detail(request):
-    return render(request, 'events/detail.html', {'page_name': 'Detail'})
+def detail(request, event_id):
+    profile = ''
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+    event = call_api_for_event_data(event_id)
+    return render(request, 'events/detail.html', {'page_name': 'Detail', 'event': event, 'profile':profile})
 
 def artist_detail(request, artist_seatgeek_id):
     profile = ''
@@ -182,6 +196,39 @@ def unfollow_artist(request, seatgeek_id, user_id):
         id = artist.id
     UserProfile.objects.get(user=user_id).fav_artists.remove(id)
     return redirect('artist_detail', seatgeek_id)
+
+
+
+def follow_or_create_event(request, event_id, user_id):
+    if FollowedEvent.objects.filter(event_seatgeek_id=event_id).exists():
+        called_event = FollowedEvent.objects.filter(event_seatgeek_id=event_id)
+        id = ''
+        for event in called_event:
+            id = event.id
+        UserProfile.objects.get(user=user_id).followed_event.add(id)
+    else:
+        event = call_api_for_event_data(event_id)
+
+        new_entry = FollowedEvent(
+            event_name=event['title'], 
+            event_date=datetime.strptime(event['datetime_local'], '%Y-%m-%dT%H:%M:%S'), 
+            event_seatgeek_id = event_id,
+            event_image=event['performers'][0]['image'])
+        new_entry.save()
+        called_event = FollowedEvent.objects.filter(event_seatgeek_id=event_id)
+        id = ''
+        for event in called_event:
+            id = event.id
+        UserProfile.objects.get(user=user_id).followed_event.add(id)
+    return redirect('detail', event_id)
+
+def unfollow_event(request, event_id, user_id):
+    called_event = FollowedEvent.objects.filter(event_seatgeek_id=event_id)
+    id = ''
+    for event in called_event:
+        id = event.id
+    UserProfile.objects.get(user=user_id).followed_event.remove(id)
+    return redirect('detail', event_id)
 
 def spotify(request):
     return render(request, 'spotify.html')
