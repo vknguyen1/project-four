@@ -32,6 +32,8 @@ class Playlist(models.Model):
 class FollowedEvent(models.Model):
     event_name = models.CharField(max_length=50)
     event_date = models.DateField()
+    event_seatgeek_id = models.IntegerField(unique)
+    event_image = models.CharField(max_length=200)
 
     def __str__(self):
         return self.event_name

@@ -1,0 +1,15 @@
+<form action="{% url 'follow_or_create_event' event.id user.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="">
+        Follow Event
+    </button>
+</form>
+{% else %}
+
+
+<form action="{% url 'unfollow_event' event.id user.id %}" method="post">
+{% csrf_token %}
+<button type="submit" class="">
+    Unfollow Event
+</button>
+</form>
