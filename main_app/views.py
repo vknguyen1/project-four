@@ -52,13 +52,22 @@ def call_api_with_filters_for_event(parameters):
 
 
 def call_api_for_artist_data(parameters):
-    filter_artist_URL = BASE_URL + performers + str(parameters) + '?' + clientID_secret
+    filter_artist_URL = BASE_URL + performers + str(parameters) + query + clientID_secret
 
 
     artist_response = requests.get(filter_artist_URL)
     
     artist_json = artist_response.json()
     return artist_json
+
+def call_api_for_event_data(parameters):
+    filter_event_URL = BASE_URL + event + '/' + str(parameters) + query + clientID_secret
+
+
+    event_response = requests.get(filter_event_URL)
+    
+    event_json = event_response.json()
+    return event_json
 
 
 def home(request):
@@ -91,8 +100,12 @@ def about(request):
     return render(request, 'about.html', {'page_name': 'About'})
 
 
-def detail(request):
-    return render(request, 'events/detail.html', {'page_name': 'Detail'})
+def detail(request, event_id):
+    profile = ''
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+    event = call_api_for_event_data(event_id)
+    return render(request, 'events/detail.html', {'page_name': 'Detail', 'event': event})
 
 def artist_detail(request, artist_seatgeek_id):
     profile = ''

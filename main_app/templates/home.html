@@ -43,7 +43,7 @@
                     <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
                     {% endfor %}
                 </ul>
-                <a class="btn" href="{% url 'detail' %}">Details</a>
+                <a class="btn" href="{% url 'detail' concerts.id %}">Details</a>
             </div>
         {% endfor %}
         {% for concerts in festivals.events%}
@@ -58,7 +58,7 @@
                 <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
                 {% endfor %}
             </ul>
-            <a class="btn" href="{% url 'detail' %}">Details</a>
+            <a class="btn" href="{% url 'detail' concerts.id %}">Details</a>
         </div>
     {% endfor %}
         </div>
