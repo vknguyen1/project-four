@@ -95,7 +95,9 @@ def detail(request):
     return render(request, 'events/detail.html', {'page_name': 'Detail'})
 
 def artist_detail(request, artist_seatgeek_id):
-    profile = UserProfile.objects.get(user=request.user)
+    profile = ''
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
     artist = call_api_for_artist_data(artist_seatgeek_id)
     topsongs = ""
     if artist['links']:
@@ -157,12 +159,14 @@ def follow_or_create_artist(request, seatgeek_id, user_id):
                 artist=artist['name'], 
                 artist_query=artist['name'].replace(" ", "-").lower(), 
                 artist_spotify_uri=artist['links'][0]['id'][15:], 
-                artist_seatgeek_id = seatgeek_id)
+                artist_seatgeek_id = seatgeek_id,
+                artist_image=artist['image'])
         else:
             new_entry = Artists(
                 artist=artist['name'], 
                 artist_query=artist['name'].replace(" ", "-").lower(), 
-                artist_seatgeek_id = seatgeek_id)
+                artist_seatgeek_id = seatgeek_id,
+                artist_image=artist['image'])
         new_entry.save()
         called_artist = Artists.objects.filter(artist_seatgeek_id=seatgeek_id)
         id = ''

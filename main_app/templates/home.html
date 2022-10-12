@@ -25,28 +25,39 @@
         </form>
     </div>
 
-    <div>
-        <h3 class="home-search">Random Concert Grid Here</h3>
-        <!-- add logic- api call to show tiles of random concerts? -->
-        <!-- basic api call + loop to show tiles of random concerts + music festival-->
-        <div class="search container-fluid">
-            <div >
-                {% for concerts in events.events%}
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image">
-                    <div class="card-body">
-                        <h1 class="card-title">{{concerts.short_title}}</h1>
-                        <!-- move below data to event detail page? -->
-                        <h2>{{concerts.venue.name}}</h2>
-                        <h2>Performers</h2>
-                        <ul>
-                            {% for performers in concerts.performers%}
-                            <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
-                            {% endfor %}
-                        </ul>
-                        <a class="btn" href="{% url 'detail' %}">Details</a>
-                    </div>
-                </div>
+</div>
+
+<div>
+    <h3 class="home-search">Random Concert Grid Here</h3>
+    <!-- add logic- api call to show tiles of random concerts? -->
+    <!-- basic api call + loop to show tiles of random concerts + music festival-->
+    <div class="search container-fluid">
+        <div class="row">
+        {% for concerts in events.events%}
+            <div class="card col-2">
+                <img class="card-img-top" src="{{concerts.performers.0.image}}" alt="Card image">
+                <h1 class="card-title">{{concerts.short_title}}</h1>
+                <!-- move below data to event detail page? -->
+                <h2>{{concerts.venue.name}}</h2>
+                <h2>Performers</h2>
+                <ul>
+                    {% for performers in concerts.performers%}
+                    <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
+                    {% endfor %}
+                </ul>
+                <a class="btn" href="{% url 'detail' %}">Details</a>
+            </div>
+        {% endfor %}
+        {% for concerts in festivals.events%}
+        <div class="card col-2">
+            <img class="card-img-top" src="{{concerts.performers.0.image}}" alt="Card image">
+            <h1 class="card-title">{{concerts.short_title}}</h1>
+            <!-- move below data to event detail page? -->
+            <h2>{{concerts.venue.name}}</h2>
+            <h2>Performers</h2>
+            <ul>
+                {% for performers in concerts.performers%}
+                <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
                 {% endfor %}
                 {% for concerts in festivals.events%}
                 <div class="card ">
