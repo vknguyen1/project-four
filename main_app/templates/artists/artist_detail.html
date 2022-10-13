@@ -94,14 +94,27 @@
 {% if artist_top_songs != "" %}
 {% for song in artist_top_songs.tracks %}
             <li>
-            <a href="{{ song.album.external_urls.spotify }}">{{ song.name }}</a>
+            <a href="{{ song.album.external_urls.spotify }}">{{ song.name}}</a>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{song.id}}?utm_source=generator" 
+            frameBorder="0" allowfullscreen="" 
+            allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+            </iframe>
             </li>
 {% endfor %}
 {% else %}
             <li>No spotify links for the artist found</li>
 {% endif %}
         </ul>
-
+    <h2>Genre</h2>
+        <ul>
+    {% if artist.genres %}
+    {% for genre in artist.genres %}
+            <li>{{genre.name}}</li>
+    {% endfor %}
+    {% else %}
+            <li>Genre not found</li>
+    {% endif %}
+        </ul>
     </div>
     </div>
 
@@ -120,6 +133,8 @@
         {% endfor %}
             <!-- </div> -->
         </div>
-    </div>    
+    </div>
+</div>
+
 
 {% endblock %}
