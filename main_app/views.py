@@ -147,7 +147,7 @@ def artist_detail(request, artist_seatgeek_id):
         topsongs = artist_topsongs(artist_id)
         related_artist = artist_related_artists(artist_id)
 
-        return render(request, 'artists/artist_detail.html', {
+    return render(request, 'artists/artist_detail.html', {
         'artist':artist, 
         'artist_top_songs': topsongs, 
         'profile': profile, 
