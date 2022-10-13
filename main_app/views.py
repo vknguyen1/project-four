@@ -18,6 +18,9 @@ env = environ.Env()
 # Create your views here.
 # TO-DO @login_required and loginrequiredmixin to necessary views
 
+
+## Declared static variables that can be used across multiple different functions, probably could be kept in a .env file just like the secrets
+
 BASE_URL = 'https://api.seatgeek.com/2/'
 
 event = 'events'
