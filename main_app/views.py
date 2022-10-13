@@ -123,8 +123,8 @@ def artist_detail(request, artist_seatgeek_id):
     artist = call_api_for_artist_data(artist_seatgeek_id)
     related_artist = ""
     topsongs = ""
-    performer_slug = {'performers.slug':str(artist_seatgeek_id)}
-    artist_upcoming_events = call_api_with_filters_for_event(performer_slug)
+    performer_id = {'performers.id':str(artist_seatgeek_id)}
+    artist_upcoming_events = call_api_with_filters_for_event(performer_id)
     if artist['links']:
         artist_id=artist['links'][0]['id'][15:]
         topsongs = artist_topsongs(artist_id)
@@ -136,7 +136,8 @@ def artist_detail(request, artist_seatgeek_id):
         'profile': profile, 
         'artist_related_artists': related_artist,
         'artist_entries': artist_entries,
-        'artist_upcoming_events': artist_upcoming_events
+        'artist_upcoming_concerts': artist_upcoming_events[0],
+        'artist_upcoming_festivals': artist_upcoming_events[1],
         })
 
 
