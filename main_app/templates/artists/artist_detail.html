@@ -29,8 +29,6 @@
             Follow Artist
         </button>
     </form>
-
-
     {% endif %}
 {% else %}
         <form action="{% url 'follow_or_create_artist' artist.id user.id %}" method="post">
@@ -64,6 +62,15 @@
             <li>Genre not found</li>
     {% endif %}
         </ul>
+    </div>
+    <div class="related-artist-container">
+        <h2>Related Artists</h2>
+    {% for artist in artist_related_artists.artists %}
+        <div class="related-artist-card">
+            <img class="related-artist-image" src="{{ artist.images.0.url }}">
+            <h2>{{ artist.name }}</h2>
+        </div>
+    {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -46,4 +46,8 @@ def artist_topsongs(artist_id):
 
 # https://api.spotify.com/v1/artists/7FBcuc1gsnv6Y1nwFtNRCb/top-tracks
 
+def artist_related_artists(artist_id):
+    related_artists = requests.get(BASE_URL + 'artists/' + artist_id + '/related-artists', headers=headers)
+    related_artists = related_artists.json()
+    return related_artists
 

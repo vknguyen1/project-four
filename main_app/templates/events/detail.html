@@ -10,7 +10,7 @@
     <h2>{{event.venue.name}}</h2>
     <h3>{{event.venue.address}}, {{event.venue.extended_address}}</h3>
     <h4 id="concert{{event.id}}">{{event.datetime_local}}</h4>
-    <h2>Performers</h2>
+    
 {% if user.is_authenticated %}
 {% if profile.followed_event.count%}
     {% if event.id in event_entries %}
@@ -39,6 +39,7 @@
         </form>    
 {% endif %}
 {% endif %}
+<h2>Performers</h2>
     <ul>
         {% for performers in event.performers%}
         <li><a href="{% url 'artist_detail' performers.id %}">{{performers.name}}</a></li>
