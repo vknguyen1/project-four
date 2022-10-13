@@ -1,7 +1,8 @@
+
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import DeleteView
 from main_app.forms import UserCreationForm, ProfileForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -254,3 +255,7 @@ def unfollow_event(request, event_id, user_id):
 
 def spotify(request):
     return render(request, 'spotify.html')
+
+class UserDeleteView(DeleteView):
+    model = User
+    success_url = '/'

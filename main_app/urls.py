@@ -15,6 +15,7 @@ urlpatterns = [
     path('user_profile/', views.user_profile, name='user_profile'),
     path('user_profile/edit/', views.user_profile_edit, name='user_profile_edit'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('accounts/<int:pk>/delete', views.UserDeleteView.as_view(), name='delete_account'),
     path('spotify/', views.spotify, name='spotify'),
 
 ]
