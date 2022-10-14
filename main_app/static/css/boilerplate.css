@@ -1,0 +1,90 @@
+/* BOILERPLATE STYLING */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  main {
+    flex-grow: 1;
+  }
+  
+  footer {
+    padding-top: 0;
+    padding: 1rem;
+    text-align: right;
+    background: linear-gradient(
+      90deg,
+      rgba(9, 9, 121, 1) 0%,
+      rgba(53, 53, 181, 1) 35%,
+      rgba(25, 111, 182, 1) 100%
+    );
+  }
+  
+  /* NAVBAR */
+  
+  .navbar {
+    background: linear-gradient(
+      90deg,
+      rgba(9, 9, 121, 1) 0%,
+      rgba(53, 53, 181, 1) 35%,
+      rgba(25, 111, 182, 1) 100%
+    );
+  }
+  
+  .nav-item {
+    margin: 1rem;
+  }
+  
+  .navbar-brand {
+    color: white;
+    margin-left: 3rem;
+    padding: 1rem;
+  }
+  
+  .navbar-brand:hover {
+    color: white;
+  }
+  
+  .navbar-toggler {
+    margin-right: 1rem;
+  }
+  
+  /* TO-DO needed? */
+  .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+  
+  .nav-link {
+    color: white;
+    font-size: large;
+    margin: 0rem 1rem 0rem 1rem;
+    padding: 0.5rem;
+  }
+  
+  .nav-link:hover {
+    color: white;
+  }
+  
+  .link-1 {
+    border-bottom: solid 5px yellow;
+  }
+  
+  .link-2:hover {
+    border-bottom: solid 5px #1db954;
+    text-decoration: none;
+  }
+  
+  .link-3 {
+    border-bottom: solid 5px rgb(164, 1, 246);
+    margin-right: 3rem;
+  }
+  
+  @media screen and (width: 600px) {
+    /* .navbar-toggler {
+          display: block;
+      } */
+  }
