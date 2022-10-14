@@ -34,6 +34,7 @@ class FollowedEvent(models.Model):
     event_date = models.DateField()
     event_seatgeek_id = models.IntegerField(unique)
     event_image = models.CharField(max_length=200)
+    event_artist = models.ManyToManyField(Artists)
 
     def __str__(self):
         return self.event_name
