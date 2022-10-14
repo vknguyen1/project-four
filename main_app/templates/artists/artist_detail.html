@@ -126,11 +126,11 @@ allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading
         <h2 class="related-artist-title">Related Artists</h2>
         <div class="horizontal-scroll-wrapper squares">
             <!-- <div class="related-artist-cards"> -->
-    {% for artist in artist_related_artists.artists %}
+    {% for artist in artist_related_artists.recommendations %}
             <!-- <div class="related-artist-card"> -->
                 <div>
-                <img class="related-artist-image" src="{{ artist.images.0.url }}">
-                <p>{{ artist.name }}</p>
+                <img class="related-artist-image" src="{{ artist.performer.image }}">
+                <a href="{% url 'artist_detail' artist.performer.id%}"><p>{{artist.performer.name}}</p></a>
                 </div>
             <!-- </div> -->
         {% endfor %}
