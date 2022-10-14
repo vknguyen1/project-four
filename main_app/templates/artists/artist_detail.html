@@ -86,25 +86,28 @@
                 
                 {% endfor %}
 
-            </div>
+</div>
 
+<iframe id="spotifyPlayer" style="border-radius:12px" src="https://open.spotify.com/embed/track/{{artist_top_songs.tracks.0.id}}
+?utm_source=generator" 
+frameBorder="0" allowfullscreen="" 
+allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+</iframe>
 
-    <div class="artist-top-songs">
-        <ul>
+<div class="artist-top-songs">
+
+        <ul id="songs">
 {% if artist_top_songs != "" %}
 {% for song in artist_top_songs.tracks %}
             <li>
-            <a href="{{ song.album.external_urls.spotify }}">{{ song.name}}</a>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{song.id}}?utm_source=generator" 
-            frameBorder="0" allowfullscreen="" 
-            allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-            </iframe>
+            <button id="{{song.id}}">{{song.name}}</button>
             </li>
 {% endfor %}
 {% else %}
             <li>No spotify links for the artist found</li>
 {% endif %}
         </ul>
+
     <h2>Genre</h2>
         <ul>
     {% if artist.genres %}
@@ -136,5 +139,17 @@
     </div>
 </div>
 
+<script>
+
+    
+    document.querySelectorAll('ul#songs > li > button').forEach(
+        songs => {
+            songs.addEventListener('click', () => {
+                document.getElementById('spotifyPlayer').src = `https://open.spotify.com/embed/track/${songs.id}?utm_source=generator`
+            })
+        }
+    )
+    
+</script>
 
 {% endblock %}
