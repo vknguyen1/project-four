@@ -13,9 +13,9 @@
     </div>        
 
     <div class="detail-detail">
-        <h2>{{event.venue.name}}</h2>
-        <h3>{{event.venue.address}}, {{event.venue.extended_address}}</h3>
-        <h4 id="concert{{event.id}}">{{event.datetime_local|slice:"0:10"}}</h4>
+        <h2>Venue: {{event.venue.name}}</h2>
+        <h3>Address: {{event.venue.address}}, {{event.venue.extended_address}}</h3>
+        <h4 id="concert{{event.id}}">Date: {{event.datetime_local|slice:"0:10"}}</h4>
         
     {% if user.is_authenticated %}
     {% if profile.followed_event.count%}

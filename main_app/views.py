@@ -29,6 +29,8 @@ performers = 'performers/'
 
 postal_code = 'postal_code='
 
+recommendations = 'recommendations/performers?performers.id='
+
 query = '?'
 
 clientID_secret = env('SEATGEEK_CLIENTID_SECRET')
@@ -53,7 +55,6 @@ def call_api_with_filters_for_event(parameters):
         filter_festival_URL = BASE_URL + event + query + "type=music_festival&" + clientID_secret
 
     filter_concert_URL = filter_concert_URL + clientID_secret
-    print(filter_concert_URL)
     filter_festival_URL = filter_festival_URL + clientID_secret
     concert_response = requests.get(filter_concert_URL)
     festival_response = requests.get(filter_festival_URL)
@@ -73,7 +74,7 @@ def call_api_for_artist_data(parameters):
     artist_json = artist_response.json()
     return artist_json
 
-## funciton to call specific event data
+## function to call specific event data
 def call_api_for_event_data(parameters):
     filter_event_URL = BASE_URL + event + '/' + str(parameters) + query + clientID_secret
 
@@ -82,7 +83,15 @@ def call_api_for_event_data(parameters):
     event_json = event_response.json() 
     return event_json
 
+## function to call related artists
+def call_similar_performers(performers):
+    filter_performer_URL = BASE_URL + recommendations + str(performers) + '&' + clientID_secret
+    
+    performer_response = requests.get(filter_performer_URL)
 
+    response_json = performer_response.json()
+
+    return response_json
 
 def home(request):
     events = call_api_with_filters_for_event('placeholder')
@@ -136,7 +145,7 @@ def artist_detail(request, artist_seatgeek_id):
         profile = UserProfile.objects.get(user=request.user)
         artist_entries = UserProfile.objects.filter(user=request.user).values_list('fav_artists__artist_seatgeek_id', flat = True)
     artist = call_api_for_artist_data(artist_seatgeek_id)
-    related_artist = ""
+    related_artist = call_similar_performers(artist_seatgeek_id)
     topsongs = ""
     performer_id = {'performers.id':str(artist_seatgeek_id)}
     artist_upcoming_events = call_api_with_filters_for_event(performer_id)
@@ -145,7 +154,7 @@ def artist_detail(request, artist_seatgeek_id):
     if artist['links']:
         artist_id=artist['links'][0]['id'][15:]
         topsongs = artist_topsongs(artist_id)
-        related_artist = artist_related_artists(artist_id)
+        
 
     return render(request, 'artists/artist_detail.html', {
         'artist':artist, 
@@ -240,7 +249,7 @@ def unfollow_artist(request, seatgeek_id, user_id):
     return redirect('artist_detail', seatgeek_id)
 
 
-## same thing like artist, but for event. TO-DO in the future: automatically add artists to the database if they are on a followed event
+## same thing like artist, but for event.
 def follow_or_create_event(request, event_id, user_id):
     if FollowedEvent.objects.filter(event_seatgeek_id=event_id).exists():
         called_event = FollowedEvent.objects.filter(event_seatgeek_id=event_id)
@@ -249,8 +258,7 @@ def follow_or_create_event(request, event_id, user_id):
             id = event.id
         UserProfile.objects.get(user=user_id).followed_event.add(id)
     else:
-        event = call_api_for_event_data(event_id)
-
+        event = call_api_for_event_data(event_id)        
         new_entry = FollowedEvent(
             event_name=event['title'], 
             event_date=datetime.strptime(event['datetime_local'], '%Y-%m-%dT%H:%M:%S'), 
@@ -259,9 +267,30 @@ def follow_or_create_event(request, event_id, user_id):
         new_entry.save()
         called_event = FollowedEvent.objects.filter(event_seatgeek_id=event_id)
         id = ''
-        for event in called_event:
-            id = event.id
+        for specificevent in called_event:
+            id = specificevent.id
         UserProfile.objects.get(user=user_id).followed_event.add(id)
+        for performers in event['performers']:                              ##filters performers in event, then add performers relationship to event if performer already exists, otherwise create new database entry for the performers
+            artist = call_api_for_artist_data(performers['id']) 
+            if artist['links']: 
+                new_entry = Artists(
+                    artist=artist['name'], 
+                    artist_query=artist['name'].replace(" ", "-").lower(), 
+                    artist_spotify_uri=artist['links'][0]['id'][15:], 
+                    artist_seatgeek_id = performers['id'],
+                    artist_image=artist['image'])
+            else:
+                new_entry = Artists(
+                    artist=artist['name'], 
+                    artist_query=artist['name'].replace(" ", "-").lower(), 
+                    artist_seatgeek_id = performers['id'],
+                    artist_image=artist['image'])
+            new_entry.save()
+            called_artist = Artists.objects.filter(artist_seatgeek_id=performers['id'])
+            id = ''
+            for artist in called_artist:
+                id = artist.id
+            FollowedEvent.objects.get(event_seatgeek_id=event_id).event_artist.add(id)
     return redirect('detail', event_id)
 
 

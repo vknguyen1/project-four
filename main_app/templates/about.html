@@ -1,44 +1,85 @@
+
 {% extends "boilerplate.html" %}
-
 {% block body %}
-
-<h1>Meet the Team</h1>
-
+<!-- TO-DO: make mobile friendly -->
+<div class="about-title-container">
+    <h1>The Team</h1>
+</div>
 <div class="about-container">
-
-    <div id="irwin">
-        <img id="irwinHeadshot" src="../static/images/Irwin_Headshot.png" alt="Irwin Headshot">
-        <h3>Irwin P</h3>
-        <ul>
-            <li>Back End</li>
-            <li>Api Manager</li>
-            <li>Database Manager</li>
-            <li>Database Manager</li>
-        </ul>
+    <div class="wrapper" id="irwindiv" onmouseover="mouseOverAbout()">
+        <div class="scale">
+            <img id="irwinHeadshot" src="../static/images/Irwin_Headshot.png" alt="Irwin Headshot">
+            <h3>Irwin Panguripan 
+                <span id="contactIcons">
+                    <a class="text-dark" href="#"><span><i class="bi bi-github"></i></span></a>
+                    <a href="#"><span><i class="bi bi-linkedin"></i></span></a>
+                    <a href="#"><span><i class="bi bi-globe2"></i></span></a>
+                </span>
+            </h3>
+        </div>
+        <div class="wrapper-right">
+            <h1>Irwin Panguripan</h1>
+            <div class="title">
+                <h2>Find Out More</h2>
+            </div>
+        
+            <div class="slide" id="slideI">
+                <hr>
+                <h2>Irwin Panguripan</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. mpore voluptates quia nam provident velit dolor eligendi.</p>
+                <h5>Songs to See Developer Roles:</h5>
+                <p>Back End | Api Manager | Database Manager | Master Debugger </p>
+            </div>
+        </div>
     </div>
     
-    <div id="vincent">
-        <img src="../static/images/Vincent_Headshot.png" alt="Vincent Headshot">
-        <h3>Vincent Nguyen</h3>
-        <ul>
-            <li>Full Stack</li>
-            <li>Api Manager</li>
-            <li>Database Manager</li>
-            <li>Designer</li>
-        </ul>
+    <div class="wrapper">
+        <div class="scale">
+            <img id="vincentHeadshot" src="../static/images/Vincent_Headshot.png" alt="Vincent Headshot">
+            <h3>Vincent Nguyen
+                <span id="contactIcons">
+                    <a class="text-dark" href="#"><span><i class="bi bi-github"></i></span></a>
+                    <a href="#"><span><i class="bi bi-linkedin"></i></span></a>
+                    <a href="#"><span><i class="bi bi-globe2"></i></span></a>
+                </span>
+            </h3>
+        </div>
+       
+        <div class="slide" id="slideV">
+            <hr>
+            <h2>Vincent Nguyen</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. mpore voluptates quia nam provident velit dolor eligendi.</p>
+            <h5>Songs to See Developer Roles:</h5>
+            <p>Full Stack | Api Manager | Database Manager | Designer </p>
+        </div>
     </div>
-
-    <div id="hannah">
-        <img src="../static/images/Hannah_Headshot.png" alt="Hannah Bethke Headshot">
-        <h3>Hannah Bethke</h3>
-        <ul>
-            <li>Front End</li>
-            <li>GitHub Manager</li>
-            <li>Documenter</li>
-            <li>Designer</li>
-        </ul>
+    <div class="wrapper">
+        <div class="scale">
+            <img id="hannahHeadshot" src="../static/images/Hannah_Headshot.png" alt="Hannah Headshot">
+            <h3>Hannah Bethke
+                <span id="contactIcons">
+                    <a class="text-dark" href="#"><span><i class="bi bi-github"></i></span></a>
+                    <a href="#"><span><i class="bi bi-linkedin"></i></span></a>
+                    <a href="#"><span><i class="bi bi-globe2"></i></span></a>
+                </span>
+            </h3>
+        </div>
+        <div class="slide" id="slideH">
+            <hr>
+            <h1>Hannah Bethke</h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. mpore voluptates quia nam provident velit dolor eligendi.</p>
+            <h5>Songs to See Developer Roles:</h5>
+            <p>Front End | GitHub Manager | Documenter | Designer </p>
+        </div>
     </div>
-
 </div>
-
 {% endblock %}
+
+<script>
+    irwindiv = document.getElementById('irwindiv')
+    irwindiv.addEventListener(onmouseover, mouseOverAbout(irwindiv))
+
+    function mouseOverAbout(irwindiv) {
+        irwindiv.style.boxShadow ='10px 20px 30px blue';
+    }
+</script>
