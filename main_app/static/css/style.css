@@ -240,17 +240,21 @@ footer {
   /* transform: rotate(-90deg);
   transform-origin: right top; */
   overflow-y: scroll;
-  height: 500px;
+  height: 400px;
   white-space: nowrap;
 }
 
 .horizontal-scroll-wrapper > div {
   display: inline-block;
-  width: 25%;
-  height: 100px;
+  /* width: 25%; */
+  /* height: 200px; */
   /* transform: rotate(90deg);
   transform-origin: right top;
   transform: rotate(-90deg) translateY(-100px); */
+}
+.related-artist-image {
+  height: 200px;
+  width: 100%;
 }
 
 .artist-genre ul {
