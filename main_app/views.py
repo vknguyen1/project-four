@@ -164,6 +164,7 @@ def artist_detail(request, artist_seatgeek_id):
         'artist_entries': artist_entries,
         'artist_upcoming_concerts': artist_upcoming_events[0],
         'artist_upcoming_festivals': artist_upcoming_events[1],
+        'artist_id': artist_id,
         })
 
 

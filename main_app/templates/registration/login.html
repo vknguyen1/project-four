@@ -2,17 +2,30 @@
 
 
 {% block body %}
+<div class="login-page">
+<div class="row">
+    <div class="col">
+        <img src="https://images.pexels.com/photos/1763067/pexels-photo-1763067.jpeg?auto=compress&cs=tinysrgb&w=800">    
+        </div>
+    
+    <div class="col">
+        <div class="login-form">
+        <div class="login-title">
+            <h1>Please Login</h1>
+        </div>
+        
+            {% if error_message %}
+            <p class="text-red">{{ error_message }}</p>
+            {% endif %}
 
-<h1>Please Login</h1>
-
-{% if error_message %}
-<p class="text-red">{{ error_message }}</p>
-{% endif %}
-
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn_primary" type="submit" value="Login">
-</form>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn btn_primary" type="submit" value="Login">
+            </form>
+        </div>
+        </div>
+</div>
+</div>
 
 {% endblock %}
