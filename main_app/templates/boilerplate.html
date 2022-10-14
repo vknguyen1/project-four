@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/fh-3.2.4/r-2.3.0/datatables.min.css"/>
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/boilerplate.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/detail_pages.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/index_pages.css' %}">
@@ -21,7 +24,7 @@
         <nav class="navbar">
             <a class="navbar-brand" href="{% url 'home' %}">Songs to See</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarContent" aria-expanded="false" aria-label="toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+              <span><i class="bi bi-list"></i></span>
             </button>
             <div class="collapse" id="navbarSupportedContent">
               {% if user.is_authenticated %}
