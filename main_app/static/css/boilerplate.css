@@ -1,4 +1,8 @@
 /* BOILERPLATE STYLING */
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 
 body {
     display: flex;
@@ -81,6 +85,11 @@ body {
   .link-3 {
     border-bottom: solid 5px rgb(164, 1, 246);
     margin-right: 3rem;
+  }
+
+  .search-icon, .bi-search {
+    height: 38px;
+    width: 38px;
   }
   
   @media screen and (width: 600px) {
