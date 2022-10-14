@@ -3,54 +3,86 @@
 
 {% block body %}
 
-{% if postal_code != "" %}
-<h1>Showing events 
-    {% if range != ""%}
-    within {{range}} from
-    {% else %}
-    near
-    {% endif %}
-    {{postal_code}} 
-</h1>
-{% endif %}
-
-{% if events.events %}
-
-<div class="search container-fluid">
-    <div class="row">
-    {% for concerts in events.events%}
-        <div class="card col-2">
-            <img class="card-img-top" src="{{concerts.performers.0.images.huge}}" alt="Card image">
-            
-            <h1 class="card-title">{{concerts.short_title}}</h1> 
-            <!-- move below data to event detail page? -->
-            <h2>{{concerts.venue.name}}</h2>
-            <h3>{{concerts.display_location}}</h3>
-            <h4 id="concert{{concerts.id}}">{{concerts.datetime_local}}</h4>
-            
-            <a class="btn" href="{% url 'detail' concerts.id %}">Details</a>
-        </div>
-    {% endfor %}
-    {% for concerts in festivals.events%}
-    <div class="card col-2">
-        <img class="card-img-top" src="{{concerts.performers.0.images.huge}}" alt="Card image">
-        <h1 class="card-title">{{concerts.short_title}}</h1>
-        <!-- move below data to event detail page? -->
-        <h2>{{concerts.venue.name}}</h2>
-        <h3>{{concerts.display_location}}</h3>
-        <h4 id="concert{{concerts.id}}">{{concerts.datetime_local}}</h4>
-
-        <a class="btn" href="{% url 'detail' concerts.id %}">Details</a>
+<div class="home-container">
+    <div class="home-container-title">
+        {% if postal_code != "" %}
+        <h2>Events 
+            {% if range != ""%}
+            within {{range}} from
+            {% else %}
+            near
+            {% endif %}
+            {{postal_code}} 
+        </h2>
+        {% endif %}
     </div>
-{% endfor %}
+    <div class="home-search container-fluid">   
+        <form class="form-inline my-2 my-lg-0" id='searchFilterForm' action="{% url 'search' %}" autocomplete="off">
+            <input class="p-1" type="text" name='postal_code' id="postal_code" placeholder="zipcode">
+            <input class="p-1 w-40" type="text" name='range' id="range" placeholder="range in miles (from zipcode)" disabled>  
+            <input class="p-1" type="text" name='performers.slug' id="performers.slug" placeholder="artist name">    
+            <input class="btn btn-light" type="submit" value="Filter">
+        </form>
+    </div>
+</div>
+
+<div class="home-search-container">
+    {% if events.events %}
+    <div class="card-grid">
+        {% for concerts in events.events%}
+        <div class="card grid-card">
+            <a href="{% url 'detail' concerts.id %}">
+                
+                <img class="card-img-top" src="{{concerts.performers.0.images.huge}}" alt="Image of Artist">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title">{{concerts.short_title}}</h4>
+                    <h5>{{concerts.venue.name}}</h5>
+                    <h5>{{concerts.display_location}}</h5>
+                    <h5 id="concert{{concerts.id}}">{{concerts.datetime_local}}</h5>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+
+        {% for concerts in festivals.events%}
+        <div class="card grid-card">
+            <a href="{% url 'detail' concerts.id %}">
+                
+                <img class="card-img-top" src="{{concerts.performers.0.images.huge}}" alt="Image of Artist">
+                <div class="card-body d-flex flex-column">
+                <h4 class="card-title">{{concerts.short_title}}</h4>
+                    <h5>{{concerts.venue.name}}</h5>
+                    <h5>{{concerts.display_location}}</h5>
+                    <h5 id="concert{{concerts.id}}">{{concerts.datetime_local}}</h5>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
 
+
 {% else %}
 
-<h1>There are no concerts found</h1>
-
+<div id="noConcertsFound">
+    <h1>There are no concerts found</h1>
+</div>
 {% endif %}
+
+<script>
+    let inp1 = document.getElementById("postal_code");
+    let inp2 = document.getElementById("range");
+
+    inp1.addEventListener("keyup", function(){
+        if(inp1.value){
+            inp2.disabled = false
+        }
+        else {
+            inp2.disabled = true
+        }
+    })
+
+</script>
 
 {% endblock %}
