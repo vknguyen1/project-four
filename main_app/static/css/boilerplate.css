@@ -1,6 +1,8 @@
 /* BOILERPLATE STYLING */
 * {
-  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
+  font-family: "Helvetica Neue",sans-serif;
+  /* font-weight: lighter; */
 }
 
 
@@ -29,7 +31,7 @@ body {
   
   /* NAVBAR */
   
-  .navbar {
+  /* .navbar {
     background: linear-gradient(
       90deg,
       rgba(9, 9, 121, 1) 0%,
@@ -55,14 +57,10 @@ body {
   .navbar-toggler {
     margin-right: 1rem;
   }
+   */
+
   
-  /* TO-DO needed? */
-  .navbar-collapse {
-    display: flex !important;
-    flex-basis: auto;
-  }
-  
-  .nav-link {
+  /* .nav-link {
     color: white;
     font-size: large;
     margin: 0rem 1rem 0rem 1rem;
@@ -90,10 +88,6 @@ body {
   .search-icon, .bi-search {
     height: 38px;
     width: 38px;
-  }
+  } */
   
-  @media screen and (width: 600px) {
-    /* .navbar-toggler {
-          display: block;
-      } */
-  }
+ 
